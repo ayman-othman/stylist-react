@@ -5,4 +5,5 @@ export const PAGES_ROUTE = {
   SIGNUP: "sign-up",
   FIND_STYLISTS: "find-stylists",
   OUTFIT_INSPIRATIONS: "outfit-inspirations",
+  STYLIST_PROFILE: "stylist-profile",
 };

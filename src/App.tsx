@@ -8,6 +8,7 @@ import FindStylist from "./pages/find-stylists/find-stylist";
 import OutfitInspiration from "./pages/outfit-inspirations/outfit-inspirations";
 import { SignupPage } from "./pages/sign-up/sign-up";
 import About from "./pages/about/about";
+import StylistProfile from "./pages/stylist-profile/stylist-profile";
 
 function App() {
   return (
@@ -15,10 +16,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} /> {}
-          <Route path={PAGES_ROUTE.ABOUT} element={<About/>}/>
+          <Route path={PAGES_ROUTE.ABOUT} element={<About />} />
           <Route path={PAGES_ROUTE.LOGIN} element={<Login />} />
           <Route path={PAGES_ROUTE.SIGNUP} element={<SignupPage />} />
           <Route path={PAGES_ROUTE.FIND_STYLISTS} element={<FindStylist />} />
+          <Route
+            path={PAGES_ROUTE.STYLIST_PROFILE}
+            element={<StylistProfile />}
+          />
           <Route
             path={PAGES_ROUTE.OUTFIT_INSPIRATIONS}
             element={<OutfitInspiration />}
