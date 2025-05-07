@@ -26,8 +26,9 @@ const FindStylist: React.FC = () => {
   const loadStylists = debounce(async () => {
     try {
       const data = await fetchStylists();
+      console.log(data);
       let filtered = data;
-
+      console.log(search);
       if (search) {
         filtered = filtered.filter(
           (s: { FN: string; LN: string }) =>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:3500/api";
 
 interface ReviewBase {
   review_ID: number;
@@ -16,11 +16,13 @@ interface Review extends ReviewBase {
 }
 
 const fetchRandomReviews = async (): Promise<ReviewBase[]> => {
+  console.log("dsds");
   try {
     const response = await axios.get(`${API_BASE_URL}/review`, {
       params: { review_ID: "%" },
     });
     const reviews: Review[] = response.data;
+    console.log("cd", reviews);
 
     const uniqueReviews = Array.from(
       new Map(reviews.map((review) => [review.review_ID, review])).values()

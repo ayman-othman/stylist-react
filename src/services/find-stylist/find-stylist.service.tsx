@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = "http://localhost:3500/api";
 
 export async function fetchStylists() {
   const response = await axios.get(`${API_BASE_URL}/stylist?stylist_ID=%`);
@@ -8,6 +8,8 @@ export async function fetchStylists() {
 }
 
 export async function fetchStylistSpecializations(id: string): Promise<string> {
-  const response = await axios.get(`${API_BASE_URL}/stylist/specializations/${id}`);
-  return response.data.specializations || 'No specialization';
+  const response = await axios.get(
+    `${API_BASE_URL}/stylist_specialization?stylist_ID=${id}`
+  );
+  return response.data.specializations || "No specialization";
 }

@@ -9,28 +9,32 @@ import OutfitInspiration from "./pages/outfit-inspirations/outfit-inspirations";
 import { SignupPage } from "./pages/sign-up/sign-up";
 import About from "./pages/about/about";
 import StylistProfile from "./pages/stylist-profile/stylist-profile";
+import { AuthProvider } from "./components/PrivateRoutes/PrivateRoute";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} /> {}
-          <Route path={PAGES_ROUTE.ABOUT} element={<About />} />
-          <Route path={PAGES_ROUTE.LOGIN} element={<Login />} />
-          <Route path={PAGES_ROUTE.SIGNUP} element={<SignupPage />} />
-          <Route path={PAGES_ROUTE.FIND_STYLISTS} element={<FindStylist />} />
-          <Route
-            path={PAGES_ROUTE.STYLIST_PROFILE}
-            element={<StylistProfile />}
-          />
-          <Route
-            path={PAGES_ROUTE.OUTFIT_INSPIRATIONS}
-            element={<OutfitInspiration />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} /> {}
+            <Route path={PAGES_ROUTE.ABOUT} element={<About />} />
+            <Route path={PAGES_ROUTE.LOGIN} element={<Login />} />
+            <Route path={PAGES_ROUTE.SIGNUP} element={<SignupPage />} />
+            <Route path={PAGES_ROUTE.FIND_STYLISTS} element={<FindStylist />} />
+            <Route
+              path={PAGES_ROUTE.OUTFIT_INSPIRATIONS}
+              element={<OutfitInspiration />}
+            />
+            {/* Protected Routes */}
+            <Route
+              path={PAGES_ROUTE.STYLIST_PROFILE}
+              element={<StylistProfile />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

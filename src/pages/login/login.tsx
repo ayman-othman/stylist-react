@@ -1,57 +1,68 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../components/PrivateRoutes/PrivateRoute";
 
-const API_BASE_URL = 'http://localhost:3000/api'; // Replace with your actual API
+const API_BASE_URL = "http://localhost:3500/api"; // Replace with your actual API
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState<'user' | 'stylist'>('user');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState<"user" | "stylist">("user");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setErrorMessage('Please fill in all fields');
+      setErrorMessage("Please fill in all fields");
       return;
     }
 
-    const endpoint = userType === 'user' ? 'user/login' : 'stylist/login';
+    const endpoint = userType === "user" ? "user/login" : "stylist/login";
     const requestBody =
-      userType === 'user'
+      userType === "user"
         ? { email, Password: password } // Capital P for user
-        : { email, password };          // lowercase p for stylist
+        : { email, password }; // lowercase p for stylist
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/${endpoint}`, requestBody, {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}/${endpoint}`,
+        requestBody,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       const data = response.data;
 
-      if (data.Status === 'OK') {
-        if (userType === 'user') {
-          localStorage.setItem('styledUser', JSON.stringify(data.user));
-          window.location.href = 'index.html';
+      if (data.Status === "OK") {
+        if (userType === "user") {
+          localStorage.setItem("styledUser", JSON.stringify(data.user));
+          setIsAuthenticated(true);
+          navigate("/");
         } else {
-          localStorage.setItem('styledStylist', JSON.stringify(data.stylist));
-          window.location.href = 'stylist-home.html';
+          localStorage.setItem("styledStylist", JSON.stringify(data.stylist));
+          window.location.href = "stylist-home.html";
         }
       } else {
-        setErrorMessage(data.Message || 'Login failed. Please try again.');
+        setErrorMessage(data.Message || "Login failed. Please try again.");
       }
     } catch (error: any) {
       if (error.response && error.response.data) {
         const message =
           error.response.data.Message ||
           (error.response.status === 401
-            ? 'Invalid email or password'
+            ? "Invalid email or password"
             : `Server error (${error.response.status}). Please try again later.`);
         setErrorMessage(message);
       } else {
-        console.error('Login error:', error);
-        setErrorMessage('Connection error. Please check your internet connection.');
+        console.error("Login error:", error);
+        setErrorMessage(
+          "Connection error. Please check your internet connection."
+        );
       }
     }
   };
@@ -91,8 +102,8 @@ const Login: React.FC = () => {
                 type="radio"
                 name="user-type"
                 value="user"
-                checked={userType === 'user'}
-                onChange={() => setUserType('user')}
+                checked={userType === "user"}
+                onChange={() => setUserType("user")}
               />
               User
             </label>
@@ -101,8 +112,8 @@ const Login: React.FC = () => {
                 type="radio"
                 name="user-type"
                 value="stylist"
-                checked={userType === 'stylist'}
-                onChange={() => setUserType('stylist')}
+                checked={userType === "stylist"}
+                onChange={() => setUserType("stylist")}
               />
               Stylist
             </label>
@@ -122,7 +133,7 @@ const Login: React.FC = () => {
 
         <div className="text-center mt-6 text-gray-600">
           <p>
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <a
               href="signup.html"
               className="text-black font-medium hover:underline"

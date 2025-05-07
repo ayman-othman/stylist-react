@@ -4,14 +4,13 @@ import { useState } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000/api"; // Replace with your actual API base
+const API_BASE_URL = "http://localhost:3500/api"; // Replace with your actual API base
 
 export const SignupPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onSetQueryParam = (type: any) => {
     setSearchParams({ type });
-
   };
   const navigate = useNavigate();
   const type = searchParams.get("type"); // no default — let it be null

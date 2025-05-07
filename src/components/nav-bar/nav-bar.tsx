@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import "./nav-bar.scss";
 import { PAGES_ROUTE } from "../../models/constant/pages-route";
+import { useEffect, useState } from "react";
+import { useAuth } from "../PrivateRoutes/PrivateRoute";
 
 function Navbar() {
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  const handleLogout = (): any => {
+    localStorage.removeItem("styledUser");
+    setIsAuthenticated(false);
+  };
+
   return (
     <nav className="flex items-center justify-between px-[5%] py-5 bg-white shadow-md sticky top-0 z-[1000]">
       {/* Logo */}
@@ -51,21 +60,30 @@ function Navbar() {
       </ul>
 
       {/* Auth Buttons */}
-      <div className="flex gap-4 items-center">
-        <Link
-          to={"/" + PAGES_ROUTE.LOGIN}
-          className="px-6 py-2 border border-black rounded-full font-medium transition-all duration-300 hover:bg-gray-100 text-nowrap"
-        >
-          Login
-        </Link>
 
-        <Link
-          to={"/" + PAGES_ROUTE.SIGNUP}
-          className="px-6 py-2 bg-black text-white rounded-full font-medium transition-all duration-300 hover:bg-gray-800 text-nowrap"
-        >
-          Sign Up
-        </Link>
-      </div>
+      {!isAuthenticated ? (
+        <div className="flex gap-4 items-center">
+          <Link
+            to={"/" + PAGES_ROUTE.LOGIN}
+            className="px-6 py-2 border border-black rounded-full font-medium transition-all duration-300 hover:bg-gray-100 text-nowrap"
+          >
+            Login
+          </Link>
+
+          <Link
+            to={"/" + PAGES_ROUTE.SIGNUP}
+            className="px-6 py-2 bg-black text-white rounded-full font-medium transition-all duration-300 hover:bg-gray-800 text-nowrap"
+          >
+            Sign Up
+          </Link>
+        </div>
+      ) : (
+        <div className="flex gap-4 items-center" onClick={handleLogout}>
+          <button className="px-6 py-2 border border-black rounded-full font-medium transition-all duration-300 hover:bg-red-500 hover:text-white text-nowrap">
+            Logout
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
