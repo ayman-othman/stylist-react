@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { checkAuth } from "../../utils/utilits";
+import { PAGES_ROUTE } from "../../models/constant/pages-route";
 const StylistProfileEdit = () => {
   const navigate = useNavigate();
   const [stylistData, setStylistData] = useState(null);
@@ -145,6 +146,39 @@ const StylistProfileEdit = () => {
 
   return (
     <div className="bg-gray-50 py-10 px-5">
+            <div className="grid grid-cols-2  gap-6 mb-10">
+        <NavLink
+          to={`/${PAGES_ROUTE.STYLIST_DASHBOARD}`}
+          className={({ isActive }) =>
+            `p-6 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 ${
+              isActive ? "bg-black text-white font-bold" : "bg-white"
+            }`
+          }
+        >
+          <div className="w-full h-full">
+            <span className="relative pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white">
+              Dashboard
+            </span>
+          </div>
+        </NavLink>
+
+        <NavLink
+          to={`/${PAGES_ROUTE.STYLIST_PROFILE}`}
+          className={({ isActive }) =>
+            `p-6 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 ${
+              isActive ? "bg-black text-white font-bold" : "bg-white"
+            }`
+          }
+        >
+          <div className="w-full h-full">
+            <span className="relative pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white">
+              Profile
+            </span>
+          </div>
+        </NavLink>
+      </div>
+
+
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-10">
           Edit Your Profile

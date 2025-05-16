@@ -268,37 +268,6 @@ const StylistProfile = () => {
 
   return (
     <main className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-2  gap-6 mb-10">
-        <NavLink
-          to={`/${PAGES_ROUTE.STYLIST_DASHBOARD}`}
-          className={({ isActive }) =>
-            `p-6 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 ${
-              isActive ? "bg-black text-white font-bold" : "bg-white"
-            }`
-          }
-        >
-          <div className="w-full h-full">
-            <span className="relative pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white">
-              Dashboard
-            </span>
-          </div>
-        </NavLink>
-
-        <NavLink
-          to={`/${PAGES_ROUTE.STYLIST_PROFILE}`}
-          className={({ isActive }) =>
-            `p-6 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 ${
-              isActive ? "bg-black text-white font-bold" : "bg-white"
-            }`
-          }
-        >
-          <div className="w-full h-full">
-            <span className="relative pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white">
-              Profile
-            </span>
-          </div>
-        </NavLink>
-      </div>
 
       {/* Profile Header */}
       <ProfileHeader
