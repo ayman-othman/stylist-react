@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/PrivateRoutes/PrivateRoute";
 
-const API_BASE_URL = "http://localhost:3500/api"; // Replace with your actual API
+const API_BASE_URL = "http://localhost:3500/api"; 
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");

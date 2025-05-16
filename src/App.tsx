@@ -10,6 +10,8 @@ import { SignupPage } from "./pages/sign-up/sign-up";
 import About from "./pages/about/about";
 import StylistProfile from "./pages/stylist-profile/stylist-profile";
 import { AuthProvider } from "./components/PrivateRoutes/PrivateRoute";
+import StylistProfileEdit from "./pages/stylist-profile-edit/stylist-profile-edit";
+import StylistDashboard from "./pages/stylist-dashboard/stylist-dashboard";
 
 function App() {
   return (
@@ -28,8 +30,16 @@ function App() {
             />
             {/* Protected Routes */}
             <Route
+              path={PAGES_ROUTE.STYLIST_DASHBOARD}
+              element={<StylistDashboard />}
+            />
+            <Route
               path={PAGES_ROUTE.STYLIST_PROFILE}
               element={<StylistProfile />}
+            />
+            <Route
+              path={PAGES_ROUTE.STYLIST_PROFILE_EDIT}
+              element={<StylistProfileEdit />}
             />
           </Route>
         </Routes>

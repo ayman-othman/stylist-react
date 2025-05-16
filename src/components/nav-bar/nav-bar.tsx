@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./nav-bar.scss";
 import { PAGES_ROUTE } from "../../models/constant/pages-route";
-import { useEffect, useState } from "react";
 import { useAuth } from "../PrivateRoutes/PrivateRoute";
 
 function Navbar() {
