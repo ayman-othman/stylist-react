@@ -4,7 +4,7 @@ import axios from "axios";
 import { checkAuth } from "../../utils/utilits";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-
+import { useAuth } from "../../components/PrivateRoutes/PrivateRoute";
 import { PAGES_ROUTE } from "../../models/constant/pages-route";
 
 const API_BASE_URL = "http://localhost:3500/api";
@@ -16,12 +16,12 @@ const StylistDashboard = () => {
   const [recentReviews, setRecentReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { userData } = useAuth();
   // Check authentication and fetch data
   useEffect(() => {
     const authData = checkAuth();
 
-    if (!authData || authData.type !== "stylist") {
+    if (!userData) {
       navigate("/login");
       return;
     }
@@ -36,7 +36,7 @@ const StylistDashboard = () => {
             `${API_BASE_URL}/stylist?stylist_ID=${authData.data.stylist_ID}`
           ),
           axios.get(
-            `${API_BASE_URL}/meetings?stylist_ID=${authData.data.stylist_ID}`
+            `${API_BASE_URL}/meeting?stylist_ID=${authData.data.stylist_ID}`
           ),
         ]);
 
@@ -148,7 +148,7 @@ const StylistDashboard = () => {
         </NavLink>
 
         <NavLink
-          to={`/${PAGES_ROUTE.STYLIST_PROFILE}`}
+          to={`/${PAGES_ROUTE.STYLIST_PROFILE_EDIT}`}
           className={({ isActive }) =>
             `p-6 rounded-lg shadow-md transition-transform duration-300 hover:-translate-y-1 ${
               isActive ? "bg-black text-white font-bold" : "bg-white"

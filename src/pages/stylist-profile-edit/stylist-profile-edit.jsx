@@ -5,6 +5,10 @@ import axios from "axios";
 import * as Yup from "yup";
 import { checkAuth } from "../../utils/utilits";
 import { PAGES_ROUTE } from "../../models/constant/pages-route";
+import { useAuth } from "../../components/PrivateRoutes/PrivateRoute";
+
+const API_BASE_URL = "http://localhost:3500/api";
+
 const StylistProfileEdit = () => {
   const navigate = useNavigate();
   const [stylistData, setStylistData] = useState(null);
@@ -13,6 +17,7 @@ const StylistProfileEdit = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const { userData } = useAuth();
 
   const profileImageRef = useRef(null);
   const portfolioImagesRef = useRef(null);
@@ -31,24 +36,23 @@ const StylistProfileEdit = () => {
 
   // Load stylist data
   useEffect(() => {
-    const authData = checkAuth();
-
-    if (!authData || authData.type !== "stylist") {
+    if (!userData) {
       navigate("/login");
       return;
     }
-
+    console.log(userData);
     const loadData = async () => {
       try {
         const response = await axios.get(
-          `/api/stylists/${authData.data.stylist_ID}`
+          `${API_BASE_URL}/stylist?stylist_ID=${userData.stylist_ID}`
         );
-        setStylistData(response.data);
+        const userObj = response?.data[0];
+        console.log("iiii", userObj);
+        setStylistData(userObj);
         setProfileImage(
-          response.data.profileImage ||
-            "images/stylist-photos/default-stylist.jpeg"
+          userObj.image_url || "images/stylist-photos/default-stylist.jpeg"
         );
-        setPortfolioImages(response.data.portfolio || []);
+        setPortfolioImages(userObj.portfolio || []);
       } catch (err) {
         setError("Failed to load profile data");
       } finally {
@@ -57,8 +61,7 @@ const StylistProfileEdit = () => {
     };
 
     loadData();
-    
-  }, [navigate]);
+  }, [navigate, userData]);
 
   // Handle profile image change
   const handleProfileImageChange = (e) => {
@@ -147,7 +150,7 @@ const StylistProfileEdit = () => {
 
   return (
     <div className="bg-gray-50 py-10 px-5">
-            <div className="grid grid-cols-2  gap-6 mb-10">
+      <div className="grid grid-cols-2  gap-6 mb-10">
         <NavLink
           to={`/${PAGES_ROUTE.STYLIST_DASHBOARD}`}
           className={({ isActive }) =>
@@ -179,7 +182,6 @@ const StylistProfileEdit = () => {
         </NavLink>
       </div>
 
-
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-10">
           Edit Your Profile
@@ -204,7 +206,7 @@ const StylistProfileEdit = () => {
                 <div className="flex items-center gap-8">
                   <img
                     id="profile-preview"
-                    src={profileImage}
+                    src={"/" + profileImage}
                     alt="Profile Preview"
                     className="w-36 h-36 rounded-full object-cover shadow-md"
                   />
