@@ -5,19 +5,13 @@ import {
 } from "../../services/find-stylist/find-stylist.service";
 import debounce from "../../utils/debounce/debounce";
 import StylistCard from "../../components/stylist-card/stylist-card";
-
-interface IStylist {
-  stylist_ID: string;
-  FN: string;
-  LN: string;
-  rating?: number;
-}
+import { IStylist } from "../../models/interfaces/interfaces";
 
 const FindStylist: React.FC = () => {
   const [stylists, setStylists] = useState<IStylist[]>([]);
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState("");
-  const [specialization, setSpecialization] = useState("");
+  const [specialization, setSpecialization] = useState(0);
 
   useEffect(() => {
     loadStylists();
@@ -43,17 +37,14 @@ const FindStylist: React.FC = () => {
         );
       }
 
-      const filteredWithSpecs = [];
-      for (const s of filtered) {
-        const specs = await fetchStylistSpecializations(s.stylist_ID);
-        if (
-          !specialization ||
-          specs.toLowerCase().includes(specialization.toLowerCase())
-        ) {
-          filteredWithSpecs.push(s);
-        }
+      let filteredWithSpecs: any | [] = null;
+      if (specialization == 0) {
+        filteredWithSpecs = data;
+      } else {
+        filteredWithSpecs = data.filter(
+          (person: any) => person?.stylist_ID == specialization
+        );
       }
-
       setStylists(filteredWithSpecs);
     } catch (err) {
       console.error("Failed to load stylists", err);
@@ -73,17 +64,17 @@ const FindStylist: React.FC = () => {
         <div className="flex flex-wrap gap-4 justify-center">
           <select
             className="w-60 px-4 py-2 rounded-full border"
-            onChange={(e) => setSpecialization(e.target.value)}
+            onChange={(e: any) => setSpecialization(e.target.value)}
           >
-            <option value="">All Specializations</option>
-            <option value="casual">Casual Wear</option>
-            <option value="luxury">Luxury Fashion</option>
-            <option value="bridal">Bridal</option>
-            <option value="corporate">Corporate</option>
-            <option value="modest">Modest Fashion</option>
-            <option value="hijabi">Hijabi Wear</option>
-            <option value="gala">Gala Events</option>
-            <option value="streetwear">Street Wear</option>
+            <option value={0}>All Specializations</option>
+            <option value={3}>Casual Wear</option>
+            <option value={2}>Luxury Fashion</option>
+            <option value={2}>Bridal</option>
+            <option value={24}>Corporate</option>
+            <option value={5}>Modest Fashion</option>
+            <option value={5}>Hijabi Wear</option>
+            {/* <option value={}>Gala Events</option> */}
+            <option value={3}>Street Wear</option>
           </select>
           <select
             className="w-60 px-4 py-2 rounded-full border"

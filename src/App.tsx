@@ -34,7 +34,7 @@ function App() {
               element={<StylistDashboard />}
             />
             <Route
-              path={PAGES_ROUTE.STYLIST_PROFILE}
+              path={`${PAGES_ROUTE.STYLIST_PROFILE}`}
               element={<StylistProfile />}
             />
             <Route

@@ -77,6 +77,7 @@ const StylistProfile = () => {
   useEffect(() => {
     // Get stylist ID from URL
     const queryParams = new URLSearchParams(window.location.search);
+    console.log("query", queryParams);
     const id = queryParams.get("id");
 
     if (!id) {
@@ -146,12 +147,21 @@ const StylistProfile = () => {
     }
   };
 
-  const handleBookAppointment = (values) => {
+  const handleBookAppointment = async (values) => {
     const authData = checkAuth();
     if (!authData || authData.type !== "user") {
       setError("You must be logged in as a user to book an appointment");
       return;
     }
+
+    // Send Booking Data to meetings api
+    await axios.post(`${API_BASE_URL}/meeting`, {
+      meeting_date: values?.date,
+      meeting_time: values?.time,
+      details: values?.details,
+      stylist_ID: stylistId,
+      user_ID: authData.data.user_ID,
+    });
 
     const packageDetails = getPackageDetails(values.package);
     setShowPaymentForm(true);
@@ -268,7 +278,6 @@ const StylistProfile = () => {
 
   return (
     <main className="max-w-7xl mx-auto">
-
       {/* Profile Header */}
       <ProfileHeader
         stylist={stylist}

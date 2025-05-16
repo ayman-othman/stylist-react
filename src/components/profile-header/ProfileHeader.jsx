@@ -8,7 +8,7 @@ const ProfileHeader = ({
     <section className="bg-gray-100 py-16 px-5 text-center">
       <div className="w-36 h-36 rounded-full overflow-hidden mx-auto mb-5">
         <img
-          src={stylist.profile_img || "/default-profile.jpg"}
+          src={"/" + stylist?.image_url || "/default-profile.jpg"}
           alt="Stylist Profile"
           className="w-full h-full object-cover"
         />
