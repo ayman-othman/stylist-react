@@ -57,6 +57,7 @@ const StylistProfileEdit = () => {
     };
 
     loadData();
+    
   }, [navigate]);
 
   // Handle profile image change

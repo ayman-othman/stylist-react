@@ -234,8 +234,8 @@ const StylistProfile = () => {
   };
 
   const checkAuth = () => {
-    const userJson = localStorage.getItem("styledUser");
-    const stylistJson = localStorage.getItem("styledStylist");
+    const userJson = localStorage.getItem("user");
+    const stylistJson = localStorage.getItem("user");
 
     if (userJson) return { type: "user", data: JSON.parse(userJson) };
     if (stylistJson) return { type: "stylist", data: JSON.parse(stylistJson) };

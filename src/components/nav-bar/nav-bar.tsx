@@ -7,7 +7,7 @@ function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   const handleLogout = (): any => {
-    localStorage.removeItem("styledUser");
+    localStorage.removeItem("user");
     setIsAuthenticated(false);
   };
 

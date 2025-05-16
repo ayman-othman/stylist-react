@@ -1,6 +1,6 @@
 // utils.js
 export const checkAuth = () => {
-  const userJson = localStorage.getItem("styledUser");
+  const userJson = localStorage.getItem("user");
   const stylistJson = localStorage.getItem("styledStylist");
 
   if (userJson) return { type: "user", data: JSON.parse(userJson) };

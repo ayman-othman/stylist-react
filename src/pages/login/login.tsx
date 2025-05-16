@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/PrivateRoutes/PrivateRoute";
-import { PAGES_ROUTE } from "../../models/constant/pages-route";
 
-const API_BASE_URL = "http://localhost:3500/api";
+const API_BASE_URL = "http://localhost:3500/api"; // Replace with your actual API
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -40,12 +39,13 @@ const Login: React.FC = () => {
       const data = response.data;
 
       if (data.Status === "OK") {
-        localStorage.setItem("styledUser", JSON.stringify(data.user));
-        setIsAuthenticated(true);
         if (userType === "user") {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          setIsAuthenticated(true);
           navigate("/");
         } else {
-          navigate(PAGES_ROUTE.STYLIST_DASHBOARD);
+          localStorage.setItem("user", JSON.stringify(data.stylist));
+          window.location.href = "stylist-home.html";
         }
       } else {
         setErrorMessage(data.Message || "Login failed. Please try again.");

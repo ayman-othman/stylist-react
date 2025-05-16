@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const parsedUserObj = JSON.parse(localStorage.getItem("styledUser"));
+  const parsedUserObj = JSON.parse(localStorage.getItem("user"));
 
   const [isAuthenticated, setIsAuthenticated] = useState(parsedUserObj?.email);
   const [userData] = useState(parsedUserObj);
