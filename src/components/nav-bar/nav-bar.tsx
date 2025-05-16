@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./nav-bar.scss";
 import { PAGES_ROUTE } from "../../models/constant/pages-route";
 import { useAuth } from "../PrivateRoutes/PrivateRoute";
@@ -23,40 +23,67 @@ function Navbar() {
       </div>
 
       {/* Navigation Links */}
-      <ul className="flex gap-8 justify-center w-full">
-        <li>
-          <Link
-            to="/"
-            className="relative pb-1 hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={"/" + PAGES_ROUTE.FIND_STYLISTS}
-            className="relative pb-1 hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
-          >
-            Find Stylists
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={"/" + PAGES_ROUTE.OUTFIT_INSPIRATIONS}
-            className="relative pb-1 hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
-          >
-            Outfit Inspirations
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={"/" + PAGES_ROUTE.ABOUT}
-            className="relative pb-1 hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
-          >
-            About
-          </Link>
-        </li>
-      </ul>
+  <ul className="flex gap-8 justify-center w-full">
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `relative pb-1 transition-all duration-300 ${
+              isActive
+                ? "font-bold border-b-2 border-black"
+                : "hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
+            }`
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to={`/${PAGES_ROUTE.FIND_STYLISTS}`}
+          className={({ isActive }) =>
+            `relative pb-1 transition-all duration-300 ${
+              isActive
+                ? "font-bold border-b-2 border-black"
+                : "hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
+            }`
+          }
+        >
+          Find Stylists
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to={`/${PAGES_ROUTE.OUTFIT_INSPIRATIONS}`}
+          className={({ isActive }) =>
+            `relative pb-1 transition-all duration-300 ${
+              isActive
+                ? "font-bold border-b-2 border-black"
+                : "hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
+            }`
+          }
+        >
+          Outfit Inspirations
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to={`/${PAGES_ROUTE.ABOUT}`}
+          className={({ isActive }) =>
+            `relative pb-1 transition-all duration-300 ${
+              isActive
+                ? "font-bold border-b-2 border-black"
+                : "hover:font-bold hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:w-full hover:after:h-[2px] hover:after:bg-black"
+            }`
+          }
+        >
+          About
+        </NavLink>
+      </li>
+    </ul>
 
       {/* Auth Buttons */}
 

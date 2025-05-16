@@ -21,10 +21,10 @@ const StylistDashboard = () => {
   useEffect(() => {
     const authData = checkAuth();
 
-    // if (!authData || authData.type !== 'stylist') {
-    //   navigate('/login');
-    //   return;
-    // }
+    if (!authData || authData.type !== "stylist") {
+      navigate("/login");
+      return;
+    }
 
     const fetchData = async () => {
       try {
@@ -77,7 +77,7 @@ const StylistDashboard = () => {
       }
     };
 
-    // fetchData();
+    fetchData();
   }, [navigate]);
 
   // Generate star rating display
@@ -113,25 +113,24 @@ const StylistDashboard = () => {
     );
   };
 
-  //   if (loading) {
-  //     return (
-  //       <div className="flex justify-center items-center h-screen">
-  //         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
-  //       </div>
-  //     );
-  //   }
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
+      </div>
+    );
+  }
 
-  //   if (error) {
-  //     return (
-  //       <div className="flex justify-center items-center h-screen text-red-500">
-  //         {error}
-  //       </div>
-  //     );
-  //   }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Stats Grid */}
       <div className="grid grid-cols-2  gap-6 mb-10">
         <NavLink
           to={`/${PAGES_ROUTE.STYLIST_DASHBOARD}`}
